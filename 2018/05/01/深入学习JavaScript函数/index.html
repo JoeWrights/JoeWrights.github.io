@@ -1,0 +1,1315 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon4.jpg?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon4.jpg?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon4.jpg?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="js,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="前言：  函数对于任何一门语言来说都是核心的概念，通过函数可以封装任意多条语句，而且可以在任何地方、任何时候调用执行。而JavaScript中最好的特性就是它对函数的实现。它几乎无所不能。但是，函数在JavaScript中并非万能的，就像《JavaScript语言精粹》中所说：函数在JavaScript里也并非万能药。  一、函数对象在JavaScript中函数就是对象，对象是“名值”对的集合并">
+<meta name="keywords" content="js">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深入学习JavaScript函数">
+<meta property="og:url" content="http://yoursite.com/2018/05/01/深入学习JavaScript函数/index.html">
+<meta property="og:site_name" content="JoeWright&#39;s Blog">
+<meta property="og:description" content="前言：  函数对于任何一门语言来说都是核心的概念，通过函数可以封装任意多条语句，而且可以在任何地方、任何时候调用执行。而JavaScript中最好的特性就是它对函数的实现。它几乎无所不能。但是，函数在JavaScript中并非万能的，就像《JavaScript语言精粹》中所说：函数在JavaScript里也并非万能药。  一、函数对象在JavaScript中函数就是对象，对象是“名值”对的集合并">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-05-10T16:13:27.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="深入学习JavaScript函数">
+<meta name="twitter:description" content="前言：  函数对于任何一门语言来说都是核心的概念，通过函数可以封装任意多条语句，而且可以在任何地方、任何时候调用执行。而JavaScript中最好的特性就是它对函数的实现。它几乎无所不能。但是，函数在JavaScript中并非万能的，就像《JavaScript语言精粹》中所说：函数在JavaScript里也并非万能药。  一、函数对象在JavaScript中函数就是对象，对象是“名值”对的集合并">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/05/01/深入学习JavaScript函数/">
+
+
+
+
+
+  <title>深入学习JavaScript函数 | JoeWright's Blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f81381390b883bbdec9990851bb43798";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <a href="https://github.com/JoeWrights" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">JoeWright's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/01/深入学习JavaScript函数/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="JoeWright">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="JoeWright's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">深入学习JavaScript函数</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-01T19:14:19+08:00">
+                2018-05-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript语言精粹/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript语言精粹</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3,205
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  14
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <hr>
+<p>前言：</p>
+<blockquote>
+<p>函数对于任何一门语言来说都是核心的概念，通过函数可以封装任意多条语句，而且可以在任何地方、任何时候调用执行。而JavaScript中最好的特性就是它对函数的实现。它几乎无所不能。但是，函数在JavaScript中并非万能的，就像《JavaScript语言精粹》中所说：函数在JavaScript里也并非万能药。</p>
+</blockquote>
+<h2 id="一、函数对象"><a href="#一、函数对象" class="headerlink" title="一、函数对象"></a><strong>一、函数对象</strong></h2><p>在<code>JavaScript</code>中函数就是对象，对象是“名值”对的集合并拥有一个连到原型对象的隐藏连接。<br>我们都知道，<strong>对象字面量产生的对象</strong>连接到<code>Object.prototype</code>，例如：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj=&#123;</span><br><span class="line">    name:<span class="string">"JoeWright"</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.prototype.isPrototypeOf(obj)); <span class="comment">//true</span></span><br></pre></td></tr></table></figure></p>
+<p>而<strong>函数对象</strong>连接到<code>Function.prototype</code>（该原型对象本身连接到<code>Object.prototype</code>）。例如：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> foo=<span class="keyword">new</span> <span class="built_in">Function</span>(<span class="string">"a"</span>,<span class="string">"b"</span>,<span class="string">"return a+b"</span>);</span><br><span class="line"><span class="built_in">console</span>.log(foo(<span class="number">2</span>,<span class="number">3</span>)); <span class="comment">//5</span></span><br><span class="line"><span class="built_in">console</span>.log(obj.constructor); <span class="comment">//ƒ Object()</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Function</span>.prototype.isPrototypeOf(foo)); <span class="comment">//true</span></span><br><span class="line"><span class="comment">//Function对象本身连接到Object.prototype</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.prototype.isPrototypeOf(<span class="built_in">Function</span>)); <span class="comment">//true</span></span><br></pre></td></tr></table></figure></p>
+<p>一些属性：</p>
+<ul>
+<li>constructor：返回创建该对象的构造函数</li>
+<li>length：返回函数定义的参数个数</li>
+<li>caller(ECMA标准之外的属性)：返回调用当前函数的函数</li>
+<li>argument：返回该函数执行时内置的arguments对象</li>
+</ul>
+<p>例如：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">a,b,c</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> foo2.caller;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> foo2();</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(foo.length); <span class="comment">//3</span></span><br><span class="line"><span class="built_in">console</span>.log(foo.name); <span class="comment">//foo</span></span><br><span class="line"><span class="built_in">console</span>.log(bar()); <span class="comment">//f bar()</span></span><br></pre></td></tr></table></figure></p>
+<p>注意：<code>Function</code>构造函数虽然使你的脚本在运行时重新定义函数的情况下具有更大的灵活性，但它也会减慢代码的执行速度。为了避免减慢脚本速度，应该尽可能少使用<code>Function</code>构造函数，多使用<code>function</code>关键字的形式声明函数。</p>
+<h2 id="二、函数字面量"><a href="#二、函数字面量" class="headerlink" title="二、函数字面量"></a><strong>二、函数字面量</strong></h2><p>函数字面量包括四部分：</p>
+<ul>
+<li>第一部分是保留字<code>function</code>。</li>
+<li>第二部分是函数名，它可以被省略（匿名函数）。函数可以用它的名字来递归调用自己。</li>
+<li>第三部分是包围在圆括号中的一组参数（形参）。其中每个参数用逗号分隔。</li>
+<li>第四部分是包围在花括号中的一组语句</li>
+</ul>
+<p>格式如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">functionName</span>(<span class="params">parameters</span>) </span>&#123;</span><br><span class="line">  执行的代码</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>例如：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">a,b</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a+b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="三、函数的调用"><a href="#三、函数的调用" class="headerlink" title="三、函数的调用"></a><strong>三、函数的调用</strong></h2><ul>
+<li>调用一个函数将<strong>暂停</strong>当前函数的执行，传递控制权和参数给新函数。</li>
+<li>函数除了声明时定义的<strong>形式参数</strong>，每个函数接收两个附加的参数:<code>this</code>和<code>arguments</code>。参数this在面向对象编程中非常重要，<strong>它的值取决于调用的模式</strong>。</li>
+<li>在<code>JavaScrip</code>t中一共有<strong>四种</strong>调用模式：<font style="color:#C69C52"><strong>方法调用模式</strong>、<strong>函数调用模式</strong>、<strong>构造器调用模式</strong>和<strong>apply调用模式</strong>。</font>这些调用模式在如何初始化关键参数this上存在差异。</li>
+</ul>
+<p>上面讲到在JavaScript中一共有四种调用模式，在这里我们分别对这几种模式一一详解。</p>
+<h3 id="方法调用模式"><a href="#方法调用模式" class="headerlink" title="方法调用模式"></a><strong>方法调用模式</strong></h3><ul>
+<li>当一个函数被保存为对象的一个属性时，我们称它为一个<strong>方法</strong></li>
+<li><font style="color:#C69C52">当一个方法被调用时，this被绑定到该对象</font>（<font style="color:#00f">这句话对于我们理解this关键字非常重要！！！！</font>）</li>
+<li>如果一个调用表达式包含一个<strong>属性存取表达式</strong>（即.表达式或者是[subscript]下标表达式，注意:<strong>如果属性不确定，要用[]</strong>）</li>
+</ul>
+<p>下面是方法调用模式的一个例子：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> myObj=&#123;</span><br><span class="line">    name:<span class="string">"JoWright"</span>,</span><br><span class="line">    value:<span class="number">0</span>,</span><br><span class="line">    increment:<span class="function"><span class="keyword">function</span>(<span class="params">inc</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.value+=<span class="keyword">typeof</span> inc ===<span class="string">"number"</span>?inc:<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">myObj.increment(); </span><br><span class="line"><span class="built_in">console</span>.log(myObj.value); <span class="comment">//1</span></span><br><span class="line"></span><br><span class="line">myObj.increment(<span class="number">3</span>)</span><br><span class="line"><span class="built_in">console</span>.log(myObj.value); <span class="comment">//4</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> key=<span class="string">"name"</span>; <span class="comment">//将name属性赋给比变量key，此时属性名不确定</span></span><br><span class="line"><span class="built_in">console</span>.log(myObj.key); <span class="comment">//undefined</span></span><br><span class="line"><span class="built_in">console</span>.log(myObj[key]); <span class="comment">//JoeWright</span></span><br></pre></td></tr></table></figure></p>
+<p><code>this</code>到对象的绑定 <strong>发生在调用的时候</strong>，这个绑定又称为 <strong>“超级”迟绑定</strong>（very late binding）。这样的绑定使得函数可以对<code>this</code> <strong>高度复用</strong>。通过this可取得它们所属对象的上下文的方法称为<strong>公共方法</strong></p>
+<h3 id="函数调用模式"><a href="#函数调用模式" class="headerlink" title="函数调用模式"></a><strong>函数调用模式</strong></h3><ul>
+<li><p>当一个函数并非一个对象的属性时，那么它被当作一个函数调用：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">a,b</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a+b;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(add(<span class="number">1</span>,<span class="number">2</span>)); <span class="comment">//3</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>当函数以此模式调用时，<strong>this被绑定到全局对象</strong>（浏览器下为Window，node下为 global）。</p>
+</li>
+</ul>
+<p>例如：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> myObj=&#123;</span><br><span class="line">    value:<span class="number">1</span>,</span><br><span class="line">    multiply:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> add=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span>.value*<span class="number">2</span>;</span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="built_in">console</span>.log(add());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">myObj.multiply(); <span class="comment">//NaN</span></span><br></pre></td></tr></table></figure></p>
+<p>为什么是NaN呢？因为add方法是一个匿名函数，此时add函数中的this绑定的是全局对象，不是myObj（实际上add方法是被Window对象调用的，所以它没有对myObj对象的访问权）</p>
+<p>解决方法：利用 <strong>闭包</strong> 的特性（先用that变量来存储this）<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> myObj=&#123;</span><br><span class="line">    value:<span class="number">1</span>,</span><br><span class="line">    multiply:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> that=<span class="keyword">this</span>;</span><br><span class="line">        <span class="keyword">var</span> add=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> that.value*<span class="number">2</span>;</span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="built_in">console</span>.log(add());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">myObj.multiply(); <span class="comment">//2</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="构造器调用模式"><a href="#构造器调用模式" class="headerlink" title="构造器调用模式"></a><strong>构造器调用模式</strong></h3><ul>
+<li><code>JavaScript</code><font style="color:#C69C52">是一门基于原型继承的语言。这意味着对象可以直接从其他对象继承属性。</font></li>
+<li><p>如果在函数前面带上new关键字来调用（当作构造函数调用），那么将创建一个隐藏连接到改函数的prototype成员的新对象，<strong>同时this 将会绑定到那个新对象上</strong>。<br>例如：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name=name;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//为Person的所有实例提供一个名为getName的公共方法</span></span><br><span class="line">Person.prototype.getName=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.name;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> p=<span class="keyword">new</span> Person(<span class="string">"JoeWright"</span>);</span><br><span class="line"><span class="built_in">console</span>.log(p);<span class="comment">//Person &#123;name: "JoeWright"&#125;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>按照约定，构造器函数保存在以大写格式命名的变量里。如果调用构造器函数时没有在前面加上new，可能会发生非常糟糕的事情（即没有编译时的警告，也没有运行时的警告），所以 <strong>大写约定非常重要</strong></p>
+</li>
+</ul>
+<h3 id="Apply调用模式（类似的还有call、bind）"><a href="#Apply调用模式（类似的还有call、bind）" class="headerlink" title="Apply调用模式（类似的还有call、bind）"></a><strong>Apply调用模式（类似的还有call、bind）</strong></h3><p>格式如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">functionName.apply(thisArg[, [arg1, arg2, ...]])</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>thisArg：将被绑定给this的值</li>
+<li>[arg1,arg2,..]：参数数组（可选）</li>
+</ul>
+<p>例如：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">a,b</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a+b;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> sum=add.apply(<span class="literal">null</span>,[<span class="number">3</span>,<span class="number">4</span>]);</span><br><span class="line"><span class="built_in">console</span>.log(sum); <span class="comment">//7</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name=name;</span><br><span class="line">&#125; </span><br><span class="line"><span class="comment">//为Person的所有实例提供一个名为getName的公共方法</span></span><br><span class="line">Person.prototype.getName=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.name;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> Pet=&#123;</span><br><span class="line">    name:<span class="string">"dogg"</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//Pet并没有继承自Person.prototype,但我们可以在Pet上调用getName方法，尽管Pet并没有一个名为getName的方法。</span></span><br><span class="line"><span class="keyword">var</span> petName=Person.prototype.getName.apply(Pet);</span><br><span class="line"><span class="built_in">console</span>.log(petName); <span class="comment">//dogg</span></span><br></pre></td></tr></table></figure>
+<h2 id="四、参数"><a href="#四、参数" class="headerlink" title="四、参数"></a><strong>四、参数</strong></h2><p>当函数被调用时，会得到一个“免费”奉送的参数，这个参数就是<code>arguments</code>数组（<code>arguments</code>对象）。通过它函数可以访问所有它被调用时传递给它的参数列表，这使得编写一个无须指定参数个数的函数成为可能。</p>
+<p>例如：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//用arguments对象求最大值</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">max</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> max=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>,len=<span class="built_in">arguments</span>.length;i&lt;len;i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">arguments</span>[i]&gt;max)&#123;</span><br><span class="line">            max=<span class="built_in">arguments</span>[i];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> max;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(max(<span class="number">2</span>,<span class="number">1</span>,<span class="number">4</span>,<span class="number">3</span>,<span class="number">7</span>)); <span class="comment">//7</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="arguments对象的callee属性-引用当前被调用的函数对象"><a href="#arguments对象的callee属性-引用当前被调用的函数对象" class="headerlink" title="arguments对象的callee属性:引用当前被调用的函数对象"></a><strong>arguments对象的callee属性:引用当前被调用的函数对象</strong></h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">arguments</span>.callee;</span><br><span class="line"> &#125;</span><br><span class="line"><span class="built_in">console</span>.log(bar()); <span class="comment">//ƒ bar()</span></span><br></pre></td></tr></table></figure>
+<p>典型应用：函数的递归调用<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//匿名函数的递归调用</span></span><br><span class="line">(</span><br><span class="line">    <span class="function"><span class="keyword">function</span>(<span class="params">count</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(count&lt;=<span class="number">3</span>)&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(count);</span><br><span class="line">            <span class="built_in">arguments</span>.callee(++count);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">)(<span class="number">0</span>);<span class="comment">//0 1 2 3</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="默认参数"><a href="#默认参数" class="headerlink" title="默认参数"></a><strong>默认参数</strong></h3><p>实现方法一：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">x,y</span>)</span>&#123;   </span><br><span class="line">    x=x||<span class="number">0</span>;</span><br><span class="line">    y=y||<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> x+y;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(add()); <span class="comment">//1</span></span><br><span class="line"><span class="built_in">console</span>.log(add(<span class="number">3</span>,<span class="number">4</span>)); <span class="comment">//7</span></span><br></pre></td></tr></table></figure></p>
+<p>实现方法二：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">x,y</span>)</span>&#123;  </span><br><span class="line">    x=x===<span class="literal">undefined</span>?<span class="number">0</span>:x;</span><br><span class="line">    y=y===<span class="literal">undefined</span>?<span class="number">1</span>:y;</span><br><span class="line">    <span class="keyword">return</span> x+y;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(add()); <span class="comment">//1</span></span><br><span class="line"><span class="built_in">console</span>.log(add(<span class="number">3</span>,<span class="number">4</span>)); <span class="comment">//7</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="五、返回"><a href="#五、返回" class="headerlink" title="五、返回"></a><strong>五、返回</strong></h2><ul>
+<li>return语句可以使函数提前返回。当return被执行时，函数立即返回而不再执行余下的语句。</li>
+<li>一个函数总是会返回一个值。如果没有指定值，就返回undefined<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params">a,b</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a+b;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"hello JoeWright"</span>; <span class="comment">//永远不会被执行</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(f(<span class="number">1</span>,<span class="number">2</span>)); <span class="comment">//3</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="六、异常"><a href="#六、异常" class="headerlink" title="六、异常"></a><strong>六、异常</strong></h2><p>JavaScript提供了一套异常处理机制。异常是干扰程序正常流程的非正常的事故。<br>例如：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> add=<span class="function"><span class="keyword">function</span>(<span class="params">a,b</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">typeof</span> a!==<span class="string">"number"</span>||<span class="keyword">typeof</span> b!==<span class="string">"number"</span>)&#123;</span><br><span class="line">        <span class="keyword">throw</span>&#123;</span><br><span class="line">            name:<span class="string">"TypeError"</span>,</span><br><span class="line">            message:<span class="string">"add needs numbers"</span></span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> a+b;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> try_it=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"> <span class="keyword">try</span>&#123;</span><br><span class="line">    add(<span class="string">"hello"</span>);</span><br><span class="line"> &#125;<span class="keyword">catch</span>(e)&#123;</span><br><span class="line">     <span class="built_in">console</span>.log(e.name+<span class="string">":"</span>+e.message);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">try_it(); <span class="comment">//TypeError add needs numbers</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="七、给类型添加方法"><a href="#七、给类型添加方法" class="headerlink" title="七、给类型添加方法"></a><strong>七、给类型添加方法</strong></h2><p>JavaScript允许给语言的基本类型添加方法。这样的方式对<strong>函数（Function）</strong>、<strong>数组（Array）</strong>、<strong>字符串（String）</strong>、<strong>正则表达式（RegExp）</strong> 和 <strong>布尔值（Boolean）</strong> 同样适用。<br>例如：<code>String</code>对象原来没有<code>reverse</code>方法，我们可以从它的原型上扩展该方法。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">String</span>.prototype.reverse=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Array</span>.prototype.reverse.apply(<span class="keyword">this</span>.split(<span class="string">""</span>)).join(<span class="string">""</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"hello"</span>.reverse()); <span class="comment">//olleh</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="八、递归"><a href="#八、递归" class="headerlink" title="八、递归"></a><strong>八、递归</strong></h2><p>递归函数是直接或间接地调用自身的一种函数。<br>例如：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sum1</span>(<span class="params">n</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> n==<span class="number">1</span>?<span class="number">1</span>:f3(n<span class="number">-1</span>)+n;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(sum1(<span class="number">100</span>)); <span class="comment">//5050</span></span><br><span class="line"><span class="comment">//等价于</span></span><br><span class="line"><span class="keyword">var</span> sum2=<span class="function"><span class="keyword">function</span>(<span class="params">n</span>)</span>&#123; <span class="comment">//匿名函数的递归</span></span><br><span class="line">    <span class="keyword">return</span> n==<span class="number">1</span>?<span class="number">1</span>:<span class="built_in">arguments</span>.callee(n<span class="number">-1</span>)+n;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(sum2(<span class="number">100</span>)); <span class="comment">//5050</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="九、作用域"><a href="#九、作用域" class="headerlink" title="九、作用域"></a><strong>九、作用域</strong></h2><p>在编程语言中，作用域控制着变量与参数的<strong>可见性</strong>及<strong>生命周期</strong>。这对开发者来说是一个重要的帮助，因为它<strong>减少了名称冲突</strong>，并且提供了自动内存管理<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> fun1=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> a=<span class="number">3</span>,b=<span class="number">5</span>;</span><br><span class="line">    <span class="keyword">var</span> fun2=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> b=<span class="number">7</span>,c=<span class="number">11</span>;</span><br><span class="line">        <span class="built_in">console</span>.log(a+<span class="string">" "</span>+b+<span class="string">" "</span>+c); <span class="comment">//3 7 11</span></span><br><span class="line">        a+=b+c;</span><br><span class="line">        <span class="built_in">console</span>.log(a+<span class="string">" "</span>+b+<span class="string">" "</span>+c); <span class="comment">//21 7 11</span></span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="built_in">console</span>.log(a+<span class="string">" "</span>+b); <span class="comment">//3 5</span></span><br><span class="line">    fun2();</span><br><span class="line">    <span class="built_in">console</span>.log(a+<span class="string">" "</span>+b);<span class="comment">// 21 5</span></span><br><span class="line">&#125;;</span><br><span class="line">fun1();</span><br></pre></td></tr></table></figure></p>
+<p>作用域的知识就写这么多，下次的文章深入学习:)</p>
+<h2 id="十、闭包"><a href="#十、闭包" class="headerlink" title="十、闭包"></a><strong>十、闭包</strong></h2><p>各种专业文献上的”闭包”（closure）定义非常抽象，很难看懂。所以这里引用阮一峰老师的理解：</p>
+<blockquote>
+<p>闭包就是能够读取其他函数内部变量的函数，闭包让这些变量的值始终保持在内存中，不会在调用结束后，被垃圾回收机制（garbage collection）回收。</p>
+</blockquote>
+<p>闭包的例子：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">func1</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> n=<span class="number">5</span>;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">func2</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(n);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> func2;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> res=func1();</span><br><span class="line">res(); <span class="comment">//5</span></span><br></pre></td></tr></table></figure></p>
+<p>上面的例子中，func2函数就是<strong>闭包</strong>。<br>由于在Javascript语言中，只有函数内部的子函数才能读取局部变量，因此可以把闭包简单理解成 <strong>“定义在一个函数内部的函数”</strong>。<br>所以，在本质上，<strong>闭包就是将函数内部和函数外部连接起来的一座桥梁</strong>。</p>
+<h2 id="十一、回调"><a href="#十一、回调" class="headerlink" title="十一、回调"></a><strong>十一、回调</strong></h2><p>回调函数就是一个参数，将这个函数作为参数传到另一个函数里面，当那个函数执行完之后，再执行传进去的这个函数。这个过程就叫做回调。</p>
+<p>看下面的例子：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">addOne</span>(<span class="params">a</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a+<span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params">a,b,c,callback</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> array=[];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;<span class="number">3</span>;i++)&#123;</span><br><span class="line">        array[i]=callback(<span class="built_in">arguments</span>[i]*<span class="number">2</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> array;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(test(<span class="number">10</span>,<span class="number">20</span>,<span class="number">30</span>,addOne)); <span class="comment">//21,41,61</span></span><br><span class="line"><span class="comment">//匿名函数的写法（推荐）</span></span><br><span class="line"><span class="built_in">console</span>.log(test(<span class="number">10</span>,<span class="number">20</span>,<span class="number">30</span>,<span class="function"><span class="keyword">function</span>(<span class="params">a</span>)</span>&#123;<span class="keyword">return</span> a+<span class="number">1</span>&#125;));<span class="comment">//21,41,61</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="十二、模块"><a href="#十二、模块" class="headerlink" title="十二、模块"></a><strong>十二、模块</strong></h2><p>模块就是<strong>实现特定功能的一组方法</strong>。<br>原始写法：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f1</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f2</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>上述函数f1、f2组成了一个模块，要使用时直接调用就可以了<br>缺点：<strong>容易造成变量污染</strong></p>
+<p>对象写法：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj=&#123;</span><br><span class="line">    name:<span class="string">"JoeWright"</span>,</span><br><span class="line">    f1:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">       <span class="comment">//...</span></span><br><span class="line">    &#125;,</span><br><span class="line">    f2:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="comment">//...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>上面的函数f1()和f2(），都封装在obj对象里。使用的时候，就是调用这个对象的属性obj.f1()。<br>缺点：暴露所有模块成员，内部状态可以被外部改写，例如：<code>obj.name=&quot;Tom&quot;</code>;</p>
+<p>完善：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj=&#123;&#125;;</span><br><span class="line"><span class="built_in">Object</span>.defineProperties(obj,&#123;</span><br><span class="line">    name:&#123;</span><br><span class="line">        value:<span class="string">"JoeWright"</span>,</span><br><span class="line">        writable:<span class="literal">false</span> <span class="comment">//设置可写为false（默认为 false）</span></span><br><span class="line">    &#125;,</span><br><span class="line">    f1:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="comment">//...</span></span><br><span class="line">    &#125;,</span><br><span class="line">    f2:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="comment">//...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line">obj.name=<span class="string">"Joe"</span>;</span><br><span class="line"><span class="built_in">console</span>.log(obj.name); <span class="comment">//JoeWright</span></span><br></pre></td></tr></table></figure></p>
+<p>立即执行函数写法：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj=(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> value=<span class="string">"JoeWright"</span>;</span><br><span class="line">    <span class="keyword">var</span> f1=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="comment">//...</span></span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">var</span> f2=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="comment">//...</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        f1:f1,</span><br><span class="line">        f2:f2</span><br><span class="line">    &#125;; </span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">console</span>.info(obj.value); <span class="comment">//undefined</span></span><br></pre></td></tr></table></figure></p>
+<p>使用上面的写法，外部代码无法读取内部的value变量。</p>
+<h2 id="十三、套用"><a href="#十三、套用" class="headerlink" title="十三、套用"></a><strong>十三、套用</strong></h2><p>函数也是值，从而我们可以用有趣的方式去操作函数值。<strong>套用</strong>允许我们将函数与传递给它的参数相结合去产生一个新函数。<br>例如：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sum1</span>(<span class="params">n</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> n==<span class="number">1</span>?<span class="number">1</span>:f3(n<span class="number">-1</span>)+n;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(sum1(<span class="number">100</span>)); <span class="comment">//5050</span></span><br><span class="line"><span class="keyword">var</span> sum2=sum1; <span class="comment">//把sum1函数赋给变量sum2，实现套用</span></span><br><span class="line"><span class="built_in">console</span>.log(sum2(<span class="number">100</span>)); <span class="comment">//5050</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="完结"><a href="#完结" class="headerlink" title="完结"></a><strong>完结</strong></h4><p>以上就是我对js函数的一些总结，不足的地方希望小伙伴们能够提出来，大家一起学习，一起进步:)</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/js/" rel="tag"><i class="fa fa-tag"></i> js</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/18/github pages + hexo打造自己的博客/" rel="next" title="hexo打造最简洁的博客">
+                <i class="fa fa-chevron-left"></i> hexo打造最简洁的博客
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/10/深入学习this、call、apply、bind/" rel="prev" title="深入学习this、call、apply、bind">
+                深入学习this、call、apply、bind <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zNjExOS8xMjY1NA=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="JoeWright">
+            
+              <p class="site-author-name" itemprop="name">JoeWright</p>
+              <p class="site-description motion-element" itemprop="description">a fighting developer</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/JoeWrights" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://segmentfault.com/u/yunzhongyujuan" target="_blank" title="SegmentFault">
+                      
+                        <i class="fa fa-fw fa-facebook"></i>SegmentFault</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/59c912a16fb9a00a5327761e" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-adn"></i>掘金</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.jianshu.com/users/b1e25999c003/timeline" target="_blank" title="简书">
+                      
+                        <i class="fa fa-fw fa-heartbeat"></i>简书</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、函数对象"><span class="nav-number">1.</span> <span class="nav-text">一、函数对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、函数字面量"><span class="nav-number">2.</span> <span class="nav-text">二、函数字面量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、函数的调用"><span class="nav-number">3.</span> <span class="nav-text">三、函数的调用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#方法调用模式"><span class="nav-number">3.1.</span> <span class="nav-text">方法调用模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#函数调用模式"><span class="nav-number">3.2.</span> <span class="nav-text">函数调用模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#构造器调用模式"><span class="nav-number">3.3.</span> <span class="nav-text">构造器调用模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Apply调用模式（类似的还有call、bind）"><span class="nav-number">3.4.</span> <span class="nav-text">Apply调用模式（类似的还有call、bind）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、参数"><span class="nav-number">4.</span> <span class="nav-text">四、参数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#arguments对象的callee属性-引用当前被调用的函数对象"><span class="nav-number">4.1.</span> <span class="nav-text">arguments对象的callee属性:引用当前被调用的函数对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#默认参数"><span class="nav-number">4.2.</span> <span class="nav-text">默认参数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、返回"><span class="nav-number">5.</span> <span class="nav-text">五、返回</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#六、异常"><span class="nav-number">6.</span> <span class="nav-text">六、异常</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#七、给类型添加方法"><span class="nav-number">7.</span> <span class="nav-text">七、给类型添加方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#八、递归"><span class="nav-number">8.</span> <span class="nav-text">八、递归</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#九、作用域"><span class="nav-number">9.</span> <span class="nav-text">九、作用域</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十、闭包"><span class="nav-number">10.</span> <span class="nav-text">十、闭包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十一、回调"><span class="nav-number">11.</span> <span class="nav-text">十一、回调</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十二、模块"><span class="nav-number">12.</span> <span class="nav-text">十二、模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十三、套用"><span class="nav-number">13.</span> <span class="nav-text">十三、套用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#完结"><span class="nav-number">13.0.1.</span> <span class="nav-text">完结</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">JoeWright</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">11.0k</span>
+  
+</div>
+
+
+  <div class="powered-by">
+    <i class="fa fa-user-md"></i>
+    <span id="busuanzi_container_site_pv">
+      本站总访问量<span id="busuanzi_value_site_pv"></span>次
+    </span>
+  </div>
+
+  <!--<div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>-->
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+</body>
+</html>
