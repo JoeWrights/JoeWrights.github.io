@@ -430,7 +430,7 @@
 <p><img src="https://segmentfault.com/img/bVbcCSS?w=1210&amp;h=168" alt="clipboard.png"></p>
 <p>另一种方法就是翻墙去谷歌商店下载了，这个程序员都懂的（就是爱折腾）,不过也有一些网站可以直接下载谷歌商店的绝大部分插件，例如 <a href="http://www.cnplugins.com/、" target="_blank" rel="noopener">http://www.cnplugins.com/、</a><br> <a href="https://www.crx4chrome.com/" target="_blank" rel="noopener">https://www.crx4chrome.com/</a></p>
 <h2 id="踩到的坑"><a href="#踩到的坑" class="headerlink" title="踩到的坑"></a>踩到的坑</h2><p>一开始安装的时候想着试试去手动安装，于是按着文档做了一遍，发现出现一些问题</p>
-<p><img src="https://segmentfault.com/img/bVbcCTO?w=882&amp;h=554" alt="clipboard.png"><br>然后我想先不管，看能不能用吧，结果谷歌开发者工具里并没有出现vue调试面板，上网查了一下发现是引入vue文件出错了：<strong>引入压缩版（即生产版）的vue文件是不会出现出现vue调试面板的</strong>，当时我是这样引入的:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=<span class="string">"https://cdn.bootcss.com/vue/2.5.16/vue.min.js"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br></pre></td></tr></table></figure></p>
+<p><img src="https://segmentfault.com/img/bVbcCTO?w=882&amp;h=554" alt="clipboard.png"><br>然后我想先不管，看能不能用吧，结果谷歌开发者工具里并没有出现vue调试面板，上网查了一下发现是引入vue文件出错了：<strong>引入压缩版（即生产版）的vue文件是不会出现出现vue调试面板的</strong>，当时我是这样引入的:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=<span class="string">"https://cdn.bootcss.com/vue/2.5.16/vue.min.js"</span>&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
 <p>后来改成未压缩版的（即开发版）：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=&quot;https://cdn.bootcss.com/vue/2.5.16/vue.js&quot;&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
 <p>结果发现调试面板出现了！，点开一下发现下面一片空白，我。。。</p>
 <p><img src="https://segmentfault.com/img/bVbcCUt?w=862&amp;h=569" alt="clipboard.png"></p>
@@ -581,7 +581,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -699,7 +699,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">13.8k</span>
+    <span title="Site words total count">14.0k</span>
   
 </div>
 
